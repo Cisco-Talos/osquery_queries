@@ -1,6 +1,6 @@
 # Cisco Talos Osquery queries
 
-These queries are distributed in the hope that they will be useful, but **WITHOUT ANY WARRANTY**
+These queries are distributed in the hope that they will be useful, but **WITHOUT ANY WARRANTY**.
 
 **NOTE:** This repository is still under construction.
 
