@@ -1,0 +1,12 @@
+malware_njrat_filepath:
+  query: SELECT key, path, name, data, datetime(mtime, "unixepoch", "UTC") as last_modified
+    FROM registry WHERE key LIKE "HKEY_USERS\%\MICROSOFT\WINDOWS\CURRENTVERSION\RUN"
+    AND name LIKE regex_match(name, "[a-f0-9]{32}", 0) AND data LIKE regex_match(data,
+    ".*\\AppData\\Local\\Temp\\(svchost|system)\.exe", 0);
+  interval: 86400
+  snapshot: true
+  description: A filepath associated with njRAT was detected. njRAT is a Remote Access
+    Trojan (RAT) that has many capabilities including arbitrary command execution,
+    file exfiltration, keylogging,and interacting with peripherals such as webcams.
+  platform:
+  - windows
