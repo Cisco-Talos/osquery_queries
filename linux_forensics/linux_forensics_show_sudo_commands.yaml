@@ -3,7 +3,7 @@ linux_forensics_show_sudo_commands:
     run_time, uid FROM shell_history WHERE command LIKE ''sudo %''; '
   interval: 86400
   snapshot: true
-  description: Show processes listening on open ports.
+  description: Show sudo commands that were run.
   mitre_tactics:
   - Defense Evasion: TA0005
   - Initial Access: TA0001
