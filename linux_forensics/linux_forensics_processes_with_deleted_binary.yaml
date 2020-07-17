@@ -1,0 +1,16 @@
+linux_forensics_processes_with_deleted_binary:
+  query: 'SELECT datetime(start_time, ''unixepoch'', ''UTC'') as start_time, name,
+    path, pid FROM processes WHERE on_disk=0; '
+  interval: 86400
+  snapshot: true
+  description: Show Processes With A Deleted Binary.
+  references:
+  - https://www.sandflysecurity.com/blog/how-to-recover-a-deleted-binary-from-active-linux-malware/
+  mitre_tactics:
+  - Defense Evasion: TA0005
+  - Initial Access: TA0001
+  - Persistence: TA0003
+  mitre_techniques:
+  - Indicator Removal on Host: T1070
+  platform:
+  - linux
