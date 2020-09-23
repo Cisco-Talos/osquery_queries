@@ -1,0 +1,18 @@
+win_forensics_outlook_security_disabled:
+  query: SELECT key, path, name, data, datetime(mtime, "unixepoch", "UTC") as last_modified
+    FROM registry WHERE key LIKE "%%\SOFTWARE\MICROSOFT\OFFICE\14.0\OUTLOOK\SECURITY"
+    AND name LIKE "ObjectModelGuard" AND value LIKE "2"
+  interval: 86400
+  snapshot: true
+  description: A registry key that controls security functions has been turned off.
+    Setting \SOFTWARE\MICROSOFT\OFFICE\14.0\OUTLOOK\SECURITY ObjectModelGuard=2 will
+    auto-approve security settings for Outlook. This can be used by malware to reduce
+    the security of the system.
+  references:
+  - https://support.microsoft.com/en-us/help/2723336/outlook-2010-programmatic-security-settings-for-simple-mapi-cannot-be 
+  mitre_tactics:
+  - Defense Evasion: TA0005
+  mitre_techniques:
+  - Disabling Security Tools: T1089
+  platform:
+  - windows
