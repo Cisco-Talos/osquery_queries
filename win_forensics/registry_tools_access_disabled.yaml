@@ -1,0 +1,18 @@
+registry_tools_access_disabled:
+  query: 'SELECT key AS reg_key, path, name, data, datetime(mtime, "unixepoch", "UTC")
+    as last_modified FROM registry WHERE (key LIKE "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"  OR
+    key LIKE "HKEY_USERS\%\Software\Microsoft\Windows\CurrentVersion\Policies\System")  AND
+    name LIKE "DisableRegistryTools"  AND data = "1"; '
+  interval: 86400
+  snapshot: true
+  description: Malware could disable access to the Registry Editor to prevent the
+    user from removing suspicious keys, such as the ones used to achieve persistence.
+  references:
+  - https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=Behavior:Win32/DisableRegistryTools.A&ThreatID=-2147275735
+  mitre_tactics:
+  - Defense Evasion: TA0005
+  mitre_techniques:
+  - Disabling Security Tools: T1089
+  - Modify Registry: T1112
+  platform:
+  - windows
