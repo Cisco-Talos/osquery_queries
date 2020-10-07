@@ -1,0 +1,31 @@
+windows_defender_spynet_registry_disabled:
+  query: 'SELECT key AS reg_key, path, name, data, datetime(mtime, "unixepoch", "UTC")
+    as last_modified FROM registry WHERE (key LIKE "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows
+    Defender\Spynet" OR key LIKE "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows
+    Defender\Spynet") AND ((name LIKE "DisableBlockAtFirstSeen"  AND data = "1") OR
+    (name LIKE "SpyNetReporting" AND data = "0") OR (name LIKE "SubmitSamplesConsent"
+    AND data = "2")); '
+  interval: 86400
+  snapshot: true
+  description: 'One or more registry keys that control Windows Defender''s Cloud Protection,
+    to detect and block new malware, have been disabled. Disabling these options may
+    indicate malicious activity.
+
+    - DisableBlockAtFirstSeen disables real time checks with Windows Defender Antivirus
+    Cloud Protection before allowing certain content to be run or accessed.
+
+    - SpyNetReporting, when set to a value of 0, disables membership to the SpyNet
+    online community that provides information about potential risks or unclassified
+    software.
+
+    - SubmitSamplesConsenti, when set to a value of 2, revokes permission to Windows
+    Defender to send samples to the Cloud.'
+  references:
+  - https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-antivirus/configure-block-at-first-sight-microsoft-defender-antivirus
+  mitre_tactics:
+  - Defense Evasion: TA0005
+  mitre_techniques:
+  - Disabling Security Tools: T1089
+  - Modify Registry: T1112
+  platform:
+  - windows
