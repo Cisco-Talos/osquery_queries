@@ -1,0 +1,18 @@
+task_manager_access_disabled:
+  query: 'SELECT key AS reg_key, path, name, data, datetime(mtime, "unixepoch", "UTC")
+    AS last_modified FROM registry  WHERE (key LIKE "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"  OR
+    key LIKE "HKEY_USERS\%\Software\Microsoft\Windows\CurrentVersion\Policies\System")  AND
+    name LIKE "DisableTaskMgr" AND data = "1"; '
+  interval: 86400
+  snapshot: true
+  description: Malware could disable access to the Task Manager from the registry
+    to prevent the user from terminating suspicious programs.
+  references:
+  - https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=Behavior%3AWin32%2FDisableTaskMgr.A&ThreatID=-2147275734
+  mitre_tactics:
+  - Defense Evasion: TA0005
+  mitre_techniques:
+  - Disabling Security Tools: T1089
+  - Modify Registry: T1112
+  platform:
+  - windows

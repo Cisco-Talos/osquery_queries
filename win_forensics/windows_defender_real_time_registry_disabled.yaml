@@ -1,0 +1,27 @@
+windows_defender_real_time_registry_disabled:
+  query: 'SELECT key AS reg_key, path, name, data, datetime(mtime, "unixepoch", "UTC")
+    as last_modified FROM registry WHERE (key LIKE "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows
+    Defender\Real-Time Protection" OR key LIKE "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows
+    Defender\Real-Time Protection") AND name IN ("DisableBehaviorMonitoring", "DisableOnAccessProtection",
+    "DisableScanOnRealtimeEnable", "DisableRealtimeMonitoring", "DisableIOAVProtection",
+    "DisableScriptScanning") AND data = "1"; '
+  interval: 86400
+  snapshot: true
+  description: "One or more registry keys that control the configuration of Windows\
+    \ Defender have been disabled, which could indicate malicious activity. \n- DisableBehaviorMonitoring\
+    \ disables behavior monitoring. \n- DisableOnAccessProtection disables the monitoring\
+    \ of files and program activity. \n- DisableScanOnRealtimeEnable disables the\
+    \ setting that allows the user to configure process scanning when real-time protection\
+    \ is on.\n- DisableIOAVProtection enables the scanning of downloaded files and\
+    \ attachments.\n- DisableRealtimeMonitoring, as its name suggests, disables real-time\
+    \ protection.\n- DisableScriptScanning enables the scanning of scripts by Windows\
+    \ Defender."
+  references:
+  - https://docs.microsoft.com/en-us/powershell/module/defender/set-mppreference?view=win10-ps
+  mitre_tactics:
+  - Defense Evasion: TA0005
+  mitre_techniques:
+  - Disabling Security Tools: T1089
+  - Modify Registry: T1112
+  platform:
+  - windows

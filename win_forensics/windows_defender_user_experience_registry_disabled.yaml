@@ -1,0 +1,29 @@
+windows_defender_user_experience_registry_disabled:
+  query: 'SELECT key AS reg_key, path, name, data, datetime(mtime, "unixepoch", "UTC")
+    as last_modified FROM registry WHERE (key LIKE "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows
+    Defender\UX Configuration" OR key LIKE "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows
+    Defender\UX Configuration") AND ((name IN ("DisablePrivacyMode", "Notification_Suppress")
+    AND data = "1") OR (name LIKE "AllowNonAdminFunctionality" AND data = "0")); '
+  interval: 86400
+  snapshot: true
+  description: 'One or more registry keys that control the configuration of Windows
+    Defender have been disabled, which could indicate malicious activity.
+
+    - DisablePrivacyMode prevents users, who are not administrators, from seeing the
+    threat history data, which lists the items that Windows Defender detected as threats
+    on the device.
+
+    - Notification_Supress, if disabled, stops notifications from Windows Defender
+    from being displayed.
+
+    - AllowNonAdminFunctionality, if enabled, allows users who are do not have administrator
+    privileges, to modify the settings of Windows Defender.'
+  references:
+  - https://docs.microsoft.com/en-us/powershell/module/defender/set-mppreference?view=win10-ps
+  mitre_tactics:
+  - Defense Evasion: TA0005
+  mitre_techniques:
+  - Disabling Security Tools: T1089
+  - Modify Registry: T1112
+  platform:
+  - windows
