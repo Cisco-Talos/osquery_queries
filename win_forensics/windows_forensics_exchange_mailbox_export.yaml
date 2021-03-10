@@ -1,0 +1,19 @@
+windows_forensics_exchange_mailbox_export:
+  query: '"SELECT script_path, script_text, DATETIME(time, ''unixepoch'', ''UTC'')
+    AS creation_time FROM powershell_events WHERE regex_match(LOWER(script_text),  ''(get-mailboxexportrequest|new-mailboxexportrequest).*mailbox.*$'',
+    0); " '
+  interval: 86400
+  snapshot: true
+  description: Query based on commands used by redteam/malicious actors to export
+    Exchange mailboxes post-exploitation. Note that the commands used are also utilized
+    by several legitimate tools.
+  references:
+  - https://news.sophos.com/en-us/2021/03/09/sophoslabs-offensive-security-releases-post-exploitation-tool-for-exchange/
+  mitre_tactics:
+  - Exfiltration: TA0010
+  mitre_techniques:
+  - Remote Access Tools: T1219
+  - Process Injection: T1055
+  - Exploitation for Credential Access: T1212
+  platform:
+  - windows
