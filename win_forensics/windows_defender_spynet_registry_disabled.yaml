@@ -7,7 +7,7 @@ windows_defender_spynet_registry_disabled:
     AND data = "2")); '
   interval: 86400
   snapshot: true
-  description: 'One or more registry keys that control Windows Defender''s Cloud Protection,
+  description: 'One or more registry keys that control Windows Defender\'s Cloud Protection,
     to detect and block new malware, have been disabled. Disabling these options may
     indicate malicious activity.
 

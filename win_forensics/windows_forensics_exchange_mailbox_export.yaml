@@ -1,6 +1,6 @@
 windows_forensics_exchange_mailbox_export:
-  query: '"SELECT script_path, script_text, DATETIME(time, ''unixepoch'', ''UTC'')
-    AS creation_time FROM powershell_events WHERE regex_match(LOWER(script_text),  ''(get-mailboxexportrequest|new-mailboxexportrequest).*mailbox.*$'',
+  query: '"SELECT script_path, script_text, DATETIME(time, "unixepoch", "UTC")
+    AS creation_time FROM powershell_events WHERE regex_match(LOWER(script_text),  "(get-mailboxexportrequest|new-mailboxexportrequest).*mailbox.*$",
     0); " '
   interval: 86400
   snapshot: true

@@ -1,6 +1,6 @@
 linux_forensics_show_sudo_commands:
-  query: 'SELECT DISTINCT command as cmd, datetime(time, ''unixepoch'', ''UTC'') as
-    run_time, uid FROM shell_history WHERE command LIKE ''sudo %''; '
+  query: 'SELECT DISTINCT command as cmd, datetime(time, "unixepoch", "UTC") as
+    run_time, uid FROM shell_history WHERE command LIKE "sudo %"; '
   interval: 86400
   snapshot: true
   description: Show sudo commands that were run.
