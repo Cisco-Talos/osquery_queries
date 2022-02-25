@@ -1,0 +1,8 @@
+references: [  https://www.sentinelone.com/labs/hermetic-wiper-ukraine-under-attack/ ]
+title: "Windows Eventlogs Driver Loaded"
+os: [ windows ]
+tactics: [ execution ]
+techniques: [ command-and-scripting-interpreter ]
+query: SELECT datetime, regex_match(data, "ImagePath\x22:\x22(.*)\x22,\x22ServiceType\x22:", 1) as image_path, data FROM windows_eventlog WHERE channel = "System" AND eventid = 7045 AND image_path LIKE "%.sys%" AND datetime LIKE regex_match(datetime, (SELECT v FROM __vars WHERE n = strftime("%Y-%m-%d", "now")), 0);
+description: |
+  This query retrieves Windows events related a driver being loaded onto the host. Malware, such as HermeticWiper, may attempt to install a custom driver to perform malicious operations. It looks for any events matching the event ID that had been created during the current day.
