@@ -3,6 +3,6 @@ title: "Windows Registry CrashControl Disabled"
 os: [ windows ]
 tactics: [ execution ]
 techniques: [ command-and-scripting-interpreter ]
-query: SELECT key, path, name, data, DATETIME(mtime, "unixepoch", "UTC") AS last_modified FROM registry WHERE key LIKE "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\CrashControl" AND name LIKE "CrashDumpEnabled" AND data=0;
+query: SELECT key, path, name, data, DATETIME(mtime, "unixepoch", "UTC") AS last_modified FROM registry WHERE key LIKE "HKEY_LOCAL_MACHINE\SYSTEM\%ControlSet%\Control\CrashControl" AND name LIKE "CrashDumpEnabled" AND data = 0;
 description: |
   This query retrieves the Windows registry key "CrashDumpEnabled" data from the host indicating the crash dump status. Malware, such as HermeticWiper, will set this key to "None" in order to prevent data recovery and forensic investigation.
