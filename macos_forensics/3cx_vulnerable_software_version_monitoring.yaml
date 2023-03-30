@@ -1,0 +1,16 @@
+3cx_vulnerable_software_version_monitoring:
+  query: SELECT name, bundle_version, CASE WHEN bundle_version < "18.12.422"
+    THEN "Vulnerable" ELSE "Not Vulnerable" END "3CX Desktop App Version Status"
+    FROM apps WHERE name LIKE "%3CX%";
+  interval: 86400
+  snapshot: true
+  description: 3CX is a Voice-Over-IP (VoIP) desktop application. Vulnerable
+    versions of the software are being used to deliver malware via legitimately
+    executed updates. It is highly recommended the software be removed or updated
+    to a safe version for any hosts returning records from this query.
+  mitre_tactics:
+  - Lateral Movement: TA0008
+  mitre_techniques:
+  - Exploitation of Remote Services: T1210
+  platform:
+  - macos
