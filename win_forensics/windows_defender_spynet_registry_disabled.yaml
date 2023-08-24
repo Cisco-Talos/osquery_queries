@@ -4,10 +4,10 @@ windows_defender_spynet_registry_disabled:
     Defender\Spynet" OR key LIKE "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows
     Defender\Spynet") AND ((name LIKE "DisableBlockAtFirstSeen"  AND data = "1") OR
     (name LIKE "SpyNetReporting" AND data = "0") OR (name LIKE "SubmitSamplesConsent"
-    AND data = "2")); '
+    AND data = "2"));'
   interval: 86400
   snapshot: true
-  description: 'One or more registry keys that control Windows Defender\'s Cloud Protection,
+  description: "One or more registry keys that control Windows Defender's Cloud Protection,
     to detect and block new malware, have been disabled. Disabling these options may
     indicate malicious activity.
 
@@ -19,7 +19,7 @@ windows_defender_spynet_registry_disabled:
     software.
 
     - SubmitSamplesConsenti, when set to a value of 2, revokes permission to Windows
-    Defender to send samples to the Cloud.'
+    Defender to send samples to the Cloud."
   references:
   - https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-antivirus/configure-block-at-first-sight-microsoft-defender-antivirus
   mitre_tactics:
